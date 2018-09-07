@@ -47,4 +47,24 @@
             </div>
         </div>
     </div>
+    @if (Model.ExternalProviders.Any())
+    {
+        <div class="col col-md-6">
+            <div class="panel-body">
+                <ul class="list-inline">
+                    @foreach (var provider in Model.ExternalProviders)
+                    {
+                        <li>
+                            <a class="btn btn-primary"
+                               asp-action="ExternalLogin"
+                               asp-route-provider="@provider.AuthenticationScheme"
+                               asp-route-returnUrl="@Model.ReturnUrl">
+                                @provider.DisplayName
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
 </div>

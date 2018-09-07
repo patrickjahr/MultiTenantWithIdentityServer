@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Migrator = IdentityServer.Services.Migrator;
 
 namespace IdentityServer
@@ -49,6 +50,16 @@ namespace IdentityServer
                 var tenantService = serviceProvider.GetRequiredService<ITenantService>();
                 return new ApplicationUserValidator(httpContext, tenantService);
             });
+            
+            services.AddAuthentication()
+                .AddOpenIdConnect("aad", "Login with Azure AD", options =>
+                {
+                    options.Authority = $"https://login.microsoftonline.com/common";
+                    options.TokenValidationParameters = 
+                        new TokenValidationParameters { ValidateIssuer = false };
+                    options.ClientId = "b8b59073-4069-4581-94cb-428d7a9ce672";
+                    options.CallbackPath = "/signin-oidc";
+                });
 
             services.AddIdentity<ApplicationUser, IdentityRole>(identityOptions =>
                 {
