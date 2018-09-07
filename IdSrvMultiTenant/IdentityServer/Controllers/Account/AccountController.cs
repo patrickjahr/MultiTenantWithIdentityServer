@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Core;
 using Core.Services;
 using IdentityModel;
 using IdentityServer.Controllers.Home;
@@ -212,9 +213,12 @@ namespace IdentityServer.Controllers.Account
                 return RedirectToAction(nameof(Login));
             }
 
+            var tenantId = info.Principal.Claims.FirstOrDefault(c => c.Type == CustomClaimTypes.AzureTenantId)?.Value;
+            var tenant = await _tenantService.GetTenantNameAsync(new Guid(tenantId));
+            var tenantExists = (returnUrl != null && !tenant.IsNullOrEmpty()) && returnUrl.Contains(tenant);
             // Sign in the user with this external login provider if the user already has a login.
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
-            if (result.Succeeded)
+            var result = tenantExists ? await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false) : SignInResult.Failed;
+            if (result.Succeeded && tenantExists)
             {
                 return RedirectToLocal(returnUrl);
             }
@@ -226,7 +230,7 @@ namespace IdentityServer.Controllers.Account
             // If the user does not have an account, then ask the user to create an account.
             ViewData["ReturnUrl"] = returnUrl;
             ViewData["LoginProvider"] = info.LoginProvider;
-            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var email = info.Principal.FindFirstValue(ClaimTypes.Name);
             return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = email });
         }
         
@@ -262,7 +266,7 @@ namespace IdentityServer.Controllers.Account
                     return View("ExternalLoginFailure");
                 }
 
-                var tenant = await _tenantService.GetTenantIdAsync(model.Tenant);
+                var tenant = await _tenantService.GetTenantIdAsync(model.Tenant, true);
                 var user = _userManager.Users.FirstOrDefault(u => u.Email == model.Email && u.TenantId == tenant);
                 if (user == null)
                 {

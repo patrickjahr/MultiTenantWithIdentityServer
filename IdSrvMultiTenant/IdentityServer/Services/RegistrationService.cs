@@ -57,7 +57,7 @@ namespace IdentityServer.Services
 
         private async Task<Guid> GetOrCreateTenantAsync(string tenantName)
         {
-            var tenantId = await _tenantService.GetTenantIdAsync(tenantName).ConfigureAwait(false);
+            var tenantId = await _tenantService.GetTenantIdAsync(tenantName, true).ConfigureAwait(false);
             if (tenantId != Guid.Empty)
             {
                 return tenantId;

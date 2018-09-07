@@ -37,10 +37,10 @@ export class EditorComponent implements OnInit {
         if (!this.formGroup.value.id) {
             this._gameService.createNewGameItem(this.formGroup.value)
                 .subscribe(created => this.navigateToDetail(created));
+        } else {
+            this._gameService.updateNewGameItem(this.formGroup.value)
+                .subscribe(() => this.navigateToDetail(this.formGroup.value.id));
         }
-
-        this._gameService.updateNewGameItem(this.formGroup.value)
-            .subscribe(() => this.navigateToDetail(this.formGroup.value.id));
     }
 
     private navigateToDetail(id: number) {
@@ -49,6 +49,11 @@ export class EditorComponent implements OnInit {
 
     private load(id: string): Observable<any> {
         this.isLoading = true;
+        if (id === 'new') {
+            this.isLoading = false;
+            return new Observable<any>();
+        }
+
         return this._gameService.getGameItemById(id)
             .pipe(
                 tap((game: Game) => {

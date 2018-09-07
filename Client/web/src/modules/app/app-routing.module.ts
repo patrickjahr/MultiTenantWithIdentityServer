@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { IsAuthenticatedGuard } from '../shared/guards/is-authenticated.guard';
 import { CallbackComponent } from './components/callback/callback.component';
+import {ErrorComponent} from "./error/error.component";
 
 const routes: Routes = [
     {
@@ -12,6 +13,10 @@ const routes: Routes = [
     {
         path: 'callback',
         component: CallbackComponent,
+    },
+    {
+        path: 'error',
+        component: ErrorComponent,
     },
     {
         path: 'login',

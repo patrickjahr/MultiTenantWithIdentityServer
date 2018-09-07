@@ -24,10 +24,13 @@ namespace Core.Services
             _logger = logger;
         }
 
-        public async Task<Guid> GetTenantIdAsync(string tenantName)
+        public async Task<Guid> GetTenantIdAsync(string tenantName, bool createIfNotExists = false)
         {
-            var tenant = await _context.Tenants.FirstOrDefaultAsync(t => t.Name.Equals(tenantName, StringComparison.OrdinalIgnoreCase));
-            return tenant?.Id ?? Guid.Empty;
+            var tenantId = (await _context.Tenants.FirstOrDefaultAsync(t => t.Name.Equals(tenantName, StringComparison.OrdinalIgnoreCase)))?.Id;
+            if (createIfNotExists && tenantId ==  null && !String.IsNullOrWhiteSpace(tenantName))
+                tenantId = await CreateAsync(tenantName);
+            
+            return tenantId ?? Guid.Empty;
         }
 
         public async Task RemoveTenantAsync(Guid id)

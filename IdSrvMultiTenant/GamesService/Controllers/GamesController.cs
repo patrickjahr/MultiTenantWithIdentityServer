@@ -59,7 +59,7 @@ namespace GamesService.Controllers
                 };
                 _context.Add(game);
                 _context.SaveChanges();
-                return Ok();
+                return Ok(game.Id.ToString());
             }
             catch (DbException e)
             {

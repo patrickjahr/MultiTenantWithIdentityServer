@@ -67,7 +67,7 @@ namespace IdentityServer
                     SetPasswordRequiredOptions(identityOptions);
 
                     identityOptions.User.RequireUniqueEmail = false;
-                    identityOptions.SignIn.RequireConfirmedEmail = true;
+                    identityOptions.SignIn.RequireConfirmedEmail = false;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()

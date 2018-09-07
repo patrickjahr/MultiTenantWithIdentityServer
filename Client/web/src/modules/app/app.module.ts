@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './components/app/app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CallbackComponent } from './components/callback/callback.component';
+import { ErrorComponent } from './error/error.component';
+import {ErrorInterceptor} from '../shared/interceptors/error.interceptor';
 
 const oauthModuleConfig: OAuthModuleConfig = {
     resourceServer: {
@@ -37,6 +39,7 @@ export function AuthConfigFactory(tenantService: TenantService): AuthConfig {
         AppComponent,
         HeaderComponent,
         CallbackComponent,
+        ErrorComponent,
     ],
     imports: [
         BrowserModule,
@@ -56,6 +59,11 @@ export function AuthConfigFactory(tenantService: TenantService): AuthConfig {
         {
             provide: HTTP_INTERCEPTORS,
             useClass: ForbiddenInterceptor,
+            multi: true,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorInterceptor,
             multi: true,
         },
         {
