@@ -54,11 +54,12 @@ namespace IdentityServer
             services.AddAuthentication()
                 .AddOpenIdConnect("aad", "Login with Azure AD", options =>
                 {
-                    options.Authority = $"https://login.microsoftonline.com/common";
+                    var adConfig = _configuration.GetSection("AzureAd");
+                    options.Authority = adConfig.GetValue<string>("Authority");
                     options.TokenValidationParameters = 
                         new TokenValidationParameters { ValidateIssuer = false };
-                    options.ClientId = "b8b59073-4069-4581-94cb-428d7a9ce672";
-                    options.CallbackPath = "/signin-oidc";
+                    options.ClientId = adConfig.GetValue<string>("ClientId");
+                    options.CallbackPath = adConfig.GetValue<string>("CallbackPath");
                 });
 
             services.AddIdentity<ApplicationUser, IdentityRole>(identityOptions =>

@@ -1,14 +1,17 @@
-﻿@model TModel
+﻿@using IdentityServer.Controllers.Account
+@model IdentityServer.Controllers.Account.SendCodeViewModel
+@{
+    ViewData["Title"] = "Send Verification Code";
+}
 
-<!DOCTYPE html>
+<h2>@ViewData["Title"]</h2>
 
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-      
-</div>
-</body>
-</html>
+<form asp-controller="Account" asp-action="SendCode" asp-route-returnurl="@Model.ReturnUrl" method="post" class="form-horizontal">
+    <input asp-for="RememberMe" type="hidden" />
+    <div class="row">
+        <div class="col-md-8">
+            <select asp-for="SelectedProvider" asp-items="Model.Providers"></select>
+            <button type="submit" class="btn btn-default">Send</button>
+        </div>
+    </div>
+</form>
