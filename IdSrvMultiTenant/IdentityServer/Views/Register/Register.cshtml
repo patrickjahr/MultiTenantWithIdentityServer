@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@model IdentityServer.Controllers.Register.RegisterViewModel
+
+<div class="login-page">
+    <div class="page-header">
+        <h1>Games Library Registration</h1>
+    </div>
+
+    @Html.Partial("_ValidationSummary")
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Registration Information</h3>
+                </div>
+                <div class="panel-body">
+                    <form asp-route="Register">
+                        <fieldset>
+                            <div class="form-group">
+                                <label asp-for="Tenant"></label>
+                                <input class="form-control" placeholder="Tenant" asp-for="Tenant" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email"></label>
+                                <input class="form-control" placeholder="Email" asp-for="Email">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ConfirmPassword"></label>
+                                <input type="password" class="form-control" placeholder="ConfirmPassword" asp-for="ConfirmPassword" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" name="button" value="login">Register</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
