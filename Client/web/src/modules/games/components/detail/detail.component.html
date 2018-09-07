@@ -1,0 +1,19 @@
+<div class="flex-container column-center" *ngIf="game; else isLoading">
+    <mat-card>
+        <mat-card-header>
+            <h4>Details</h4>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Name: {{ game.name }}</p>
+            <p>Console: {{ game.console }}</p>
+            <p>Type: {{ game.type }}</p>
+            <p>More Information coming soon....</p>
+        </mat-card-content>
+    </mat-card>
+    <button class="page-action-button" mat-fab type="button" [routerLink]="['editor']">
+        <mat-icon>edit</mat-icon>
+    </button>
+</div>
+<ng-template #isLoading>
+    <gl-spinner [active]="true"></gl-spinner>
+</ng-template>

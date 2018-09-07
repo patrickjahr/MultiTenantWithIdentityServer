@@ -1,0 +1,83 @@
+@import url("../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css");
+@import "./colors";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  color: $text-color-darker;
+}
+
+button, a {
+  outline: none !important;
+}
+
+a {
+  text-decoration: none;
+  color: $text-color-darker; // do we need a highlight on an a tag?
+  &.light {
+    color: $text-color-light;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.flex-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  &.row {
+    flex-flow: row;
+  }
+  &.row-center {
+    flex-flow: row;
+    justify-content: center;
+  }
+  &.column {
+    flex-flow: column;
+  }
+  &.column-center {
+    flex-flow: column;
+    align-items: center;
+  }
+  &.center {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+//Find better class name
+.margin-center {
+  margin: 0 auto;
+}
+
+.page-action-button {
+  position: absolute !important; //find a better way
+  right: 42px;
+  bottom: 42px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: center;
+  h4 {
+    flex: 1;
+  }
+}
+
+.card-menu {
+  display: flex;
+  justify-content: flex-end;
+  button {
+    margin-right: 16px;
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+
+}
+
+@import 'material-customization';

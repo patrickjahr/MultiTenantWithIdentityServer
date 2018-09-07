@@ -1,0 +1,12 @@
+@import "palettes";
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$my-app-primary: mat-palette($brand-color-palette);
+$my-app-accent: mat-palette($accent-color-palette, 500, 900, A100);
+$my-app-warn: mat-palette($warn-color-palette);
+
+$block-join-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+
+@include angular-material-theme($block-join-theme);

@@ -1,0 +1,18 @@
+@import "../../../../scss/colors";
+
+.login-container {
+  max-width: 500px;
+  max-height: 500px;
+}
+
+.login-header {
+  display: flex;
+  justify-content: center;
+  h4 {
+    flex: 1;
+  }
+}
+
+button {
+  margin: 0 16px;
+}

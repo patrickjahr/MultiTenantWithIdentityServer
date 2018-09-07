@@ -1,0 +1,9 @@
+<mat-toolbar color="primary">
+    <a class="title light" [routerLink]="['dashboard']">{{ title }}</a>
+    <button class="icon" mat-icon-button [matMenuTriggerFor]="profileMenu">
+        <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item (click)="performLogout()">Logout</button>
+    </mat-menu>
+</mat-toolbar>

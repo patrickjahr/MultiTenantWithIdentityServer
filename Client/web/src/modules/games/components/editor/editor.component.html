@@ -1,0 +1,33 @@
+<form [formGroup]="formGroup" (ngSubmit)="submit()">
+  <div class="flex-container column-center">
+    <mat-card *ngIf="!isLoading">
+      <mat-card-header>
+        <h4>Edit Game</h4>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="tt__form">
+          <input *ngIf="id" type="hidden" id="id" name="id" formControlName="id">
+          <mat-form-field>
+            <input placeholder="Game name" matInput type="text" id="networkname" name="networkname"
+                   formControlName="name">
+          </mat-form-field>
+          <mat-form-field>
+            <input placeholder="Console" matInput type="text" id="console" name="console"
+                   formControlName="console">
+          </mat-form-field>
+          <mat-form-field>
+            <input placeholder="Game type" matInput type="text" id="type" name="type"
+                   formControlName="type">
+          </mat-form-field>
+        </div>
+        <div class="card-menu">
+          <button mat-raised-button type="button" [routerLink]="['../..']">Cancel</button>
+          <button mat-raised-button color="accent" type="submit" [disabled]="formGroup.invalid">{{
+            formGroup.value.id ? 'Save' : 'Create' }}
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</form>
+<gl-spinner [active]="isLoading"></gl-spinner>

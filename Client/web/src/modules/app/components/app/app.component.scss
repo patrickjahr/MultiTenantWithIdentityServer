@@ -1,0 +1,12 @@
+.gl-container {
+  height: 100%;
+}
+
+.gl-content-container {
+  $paddingTop: 24px;
+
+  height: calc(100vh - 64px - #{$paddingTop}); //height minus height of the toolbar header
+  width: 100%;
+  overflow: hidden;
+  padding-top: $paddingTop;
+}
